@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class FlipzonApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Hellow World");
+		System.out.println("Flipzon Application Running......");
 		SpringApplication.run(FlipzonApplication.class, args);
 	}
 }
