@@ -8,22 +8,21 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.*;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Date;
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
-import java.util.Date;
 
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserControllerTest {
 
     @InjectMocks
-    @Autowired
     UserController userController;
 
     @Mock
@@ -39,15 +38,15 @@ public class UserControllerTest {
         user.setDate(new Date());
         user.setUserName("TestName");
         user.setPassword("**********");
-        user.setGender("male");
+        user.setGender("Male");
         user.setUserType("BUYER");
         return user;
     }
 
     @Test
-    public void verifyBuyerRegistered(){
+    public void shouldReturnStatusOkIfBuyerRegistered(){
         User user = createUser();
-        when(userService.addUser(any())).thenReturn(true);
+        when(userService.addUser(user)).thenReturn(true);
         ResponseEntity<String> response = userController.buyerRegistration(user);
         Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
@@ -61,7 +60,7 @@ public class UserControllerTest {
 
     }
     @Test
-    public void verifyBuyerNotRegisteredIfValidationFails(){
+    public void shouldReturnBadRequestIfBuyerValidationFails(){
         User user = createUser();
         user.setName("");
         ResponseEntity<String> response = userController.buyerRegistration(user);

@@ -1,7 +1,6 @@
 package com.flipzon.ecom.service;
 
 import com.flipzon.ecom.dao.UserDAO;
-import com.flipzon.ecom.dao.UserDAOImpl;
 import com.flipzon.ecom.entity.User;
 import com.flipzon.ecom.repository.UserServiceImpl;
 import org.junit.Assert;
@@ -15,13 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
     @InjectMocks
-    @Autowired
     UserServiceImpl userService;
 
     @Mock
@@ -45,18 +45,21 @@ public class UserServiceTest {
     @Test
     public void verifyIfAddUserServiceIsSuccess(){
         User user = createUser();
-        when(userDAO.addUser(any())).thenReturn(true);
+        when(userDAO.addUser(user)).thenReturn(true);
         boolean flag = userService.addUser(user);
         Assert.assertEquals(true, flag);
+        verify(userDAO, times(1)).addUser(user);
+
 
     }
 
     @Test
     public void shouldReturnFalseIfUserAddFails(){
         User user = createUser();
-        when(userDAO.addUser(any())).thenReturn(false);
+        when(userDAO.addUser(user)).thenReturn(false);
         boolean flag = userService.addUser(user);
         Assert.assertEquals(false, flag);
+        verify(userDAO, times(1)).addUser(user);
 
     }
 

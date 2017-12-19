@@ -20,12 +20,12 @@ public class UserController {
         if (message.isEmpty()) {
             boolean flag = userService.addUser(user);
             if (flag)
-            return new ResponseEntity<String>(HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.CREATED);
             else
-                return new ResponseEntity<String>("Something went wrong.", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>("Something went wrong.", HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
         else
-            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 }

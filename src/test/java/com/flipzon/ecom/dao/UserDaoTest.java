@@ -7,12 +7,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
+
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,10 +28,11 @@ public class UserDaoTest {
 
     @Test
     public void shouldReturnTrueIfAddUserIsSuccessful() {
-        User user = mock(User.class);
-        when(entityManager.contains(any())).thenReturn(true);
+        User user = new User();
+        when(entityManager.contains(user)).thenReturn(true);
         boolean result = userDAO.addUser(user);
         Assert.assertEquals(true,result);
+        verify(entityManager, times(1)).contains(user);
     }
 
 

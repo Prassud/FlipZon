@@ -70,7 +70,7 @@ public class BuyerRegistrationValidator {
         if (!StringUtils.isNumericSpace(mobileNumber)) {
             return "Provided mobile number is not numeric" + System.lineSeparator();
         }
-        if (message.length() != 10) {
+        if (mobileNumber.length() != 10) {
             return "Mobile Number should be 10 digits" + System.lineSeparator();
         }
         return "";
