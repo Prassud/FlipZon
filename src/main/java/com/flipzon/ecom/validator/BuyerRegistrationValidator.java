@@ -10,24 +10,40 @@ public class BuyerRegistrationValidator {
 
     public static String validateMandatoryFieldsInPayload(User user) {
         StringBuffer message = new StringBuffer();
+
         message.append(validateIsEmptyAndMaxLength("name", user.getName(), 30));
         message.append(validateIsEmptyAndMaxLength("address", user.getAddress(), 60));
-        message.append(validateIsEmptyAndMaxLength("password", user.getPassword(), 12));
-        message.append(validateIsEmptyAndMaxLength("userName", user.getUserName(), 20));
+        message.append(validateSpaceAndIsEmptyAndMaxLength("password", user.getPassword(), 12));
+        message.append(validateSpaceAndIsEmptyAndMaxLength("userName", user.getUserName(), 20));
         message.append(validateGender(user.getGender()));
         message.append(validateMobileNumber(user.getMobile()));
         message.append(validateEmailId(user.getEmailId()));
         message.append(validateDate(user.getDate()));
+
         return message.toString();
     }
 
     private static String validateIsEmptyAndMaxLength(String fieldName, String fieldValue, int maxLength) {
+        fieldValue = StringUtils.trimToEmpty(fieldValue);
+
         if (StringUtils.isEmpty(fieldValue)) {
             return "Mandatory field " + fieldName + " is not Provided" + System.lineSeparator();
         }
+
         if (fieldValue.length() > maxLength) {
             return "Maximum allowed length for " + fieldName + " is " + maxLength + " " + System.lineSeparator();
         }
+        return "";
+    }
+
+    private static String validateSpaceAndIsEmptyAndMaxLength(String fieldName, String fieldValue, int maxLength) {
+        String message = validateIsEmptyAndMaxLength(fieldName, fieldValue, maxLength);
+
+        if (!message.isEmpty()) {
+            return message;
+        }
+        if (fieldValue.contains(" "))
+            return "Space not allowed for " + fieldName + System.lineSeparator();
         return "";
     }
 
@@ -54,6 +70,9 @@ public class BuyerRegistrationValidator {
         if (!StringUtils.isNumericSpace(mobileNumber)) {
             return "Provided mobile number is not numeric" + System.lineSeparator();
         }
+        if (message.length() != 10) {
+            return "Mobile Number should be 10 digits" + System.lineSeparator();
+        }
         return "";
     }
 
@@ -70,13 +89,8 @@ public class BuyerRegistrationValidator {
     }
 
     private static String validateGender(String gender) {
-
-        String message = validateIsEmptyAndMaxLength("gender", gender, 6);
-        if (!message.isEmpty()) {
-            return message;
-        }
-        if (!("male".equalsIgnoreCase(gender) || "female".equalsIgnoreCase(gender) || "others".equalsIgnoreCase(gender))) {
-            return "Provided gender is invalid. Provide male, female or others" + System.lineSeparator();
+        if (!("Male".equals(gender) || "Female".equals(gender) || "Others".equals(gender))) {
+            return "Provided gender is invalid. Provide Male, Female or Others" + System.lineSeparator();
         }
         return "";
     }
