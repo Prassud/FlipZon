@@ -18,7 +18,7 @@ public class User {
     private String name;
     @Column(name = "email")
     private String emailId;
-    @Column(name = "userName")
+    @Column(name = "user_name")
     private String userName;
     @Column(name = "password")
     private String password;
@@ -30,6 +30,8 @@ public class User {
     private String gender;
     @Column(name = "date")
     private Date date;
+    @Column(name = "user_type")
+    private String userType;
 
     public void setName(String name) {
         this.name = name;
@@ -93,5 +95,13 @@ public class User {
 
     public Date getDate() {
         return date;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

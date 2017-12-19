@@ -2,7 +2,7 @@ package com.flipzon.ecom.repository;
 
 import com.flipzon.ecom.entity.User;
 
-public interface IUserService
+public interface UserService
 {
     boolean addUser(User user);
 
