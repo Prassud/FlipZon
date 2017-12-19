@@ -15,7 +15,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST,value = "/users")
     public ResponseEntity<String> buyerRegistration(@RequestBody User user){
-        String message = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        String message = BuyerRegistrationValidator.validateBuyer(user);
 
         if (message.isEmpty()) {
             boolean flag = userService.addUser(user);

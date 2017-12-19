@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class BuyerRegistrationValidator {
 
-    public static String validateMandatoryFieldsInPayload(User user) {
+    public static String validateBuyer(User user) {
         StringBuffer message = new StringBuffer();
 
         message.append(validateIsEmptyAndMaxLength("name", user.getName(), 30));
@@ -19,7 +19,7 @@ public class BuyerRegistrationValidator {
         message.append(validateMobileNumber(user.getMobile()));
         message.append(validateEmailId(user.getEmailId()));
         message.append(validateDate(user.getDate()));
-
+        message.append(!"Buyer".equals(user.getUserType()) ? "Invalid User Type" + System.lineSeparator() : "");
         return message.toString();
     }
 
@@ -62,11 +62,6 @@ public class BuyerRegistrationValidator {
 
 
     private static String validateMobileNumber(String mobileNumber) {
-
-        String message = validateIsEmptyAndMaxLength("mobile", mobileNumber, 10);
-        if (!message.isEmpty()) {
-            return message;
-        }
         if (!StringUtils.isNumericSpace(mobileNumber)) {
             return "Provided mobile number is not numeric" + System.lineSeparator();
         }

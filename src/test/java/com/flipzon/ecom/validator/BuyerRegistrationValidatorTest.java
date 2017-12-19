@@ -13,17 +13,17 @@ public class BuyerRegistrationValidatorTest {
     @Test
     public void verifyEmailIdIsInvalid() {
 
-        User user = createUserObject();
+        User user = createUser();
         user.setEmailId("jhvjfghgfk.com");
-        String validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
         user.setEmailId("jhvjfghgfk.com@");
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
     }
 
-    private User createUserObject() {
+    private User createUser() {
         User user = new User();
         user.setAddress("TestUser");
         user.setEmailId("test@thoughtworks.com");
@@ -32,7 +32,8 @@ public class BuyerRegistrationValidatorTest {
         user.setUserName("TestUserName");
         user.setDate(new Date());
         user.setUserName("TestName");
-        user.setPassword("**********");
+        user.setPassword("sdfghyu");
+        user.setUserType("Buyer");
         user.setGender("Male");
         return user;
     }
@@ -40,15 +41,15 @@ public class BuyerRegistrationValidatorTest {
     @Test
     public void verifyMobileNumberIsInvalid() {
 
-        User user = createUserObject();
+        User user = createUser();
         user.setMobile("jfdhg");
-        String validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
         user.setMobile("");
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
         user.setMobile("123456789012");
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
@@ -57,31 +58,31 @@ public class BuyerRegistrationValidatorTest {
     @Test
     public void verifyIfValidationMessageIsNotEmptyWhenNonMandatoryFieldsAreEmpty() {
 
-        User user = createUserObject();
+        User user = createUser();
         user.setUserName("");
-        String validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
-        user = createUserObject();
+        user = createUser();
         user.setName("");
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
-        user = createUserObject();
+        user = createUser();
         user.setPassword("");
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
-        user = createUserObject();
+        user = createUser();
         user.setAddress("");
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
-        user = createUserObject();
+        user = createUser();
         user.setPassword("");
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
@@ -91,25 +92,25 @@ public class BuyerRegistrationValidatorTest {
     @Test
     public void verifyIfValidationMessageIsNotEmptyWhenFieldsExceededMaxLength() {
 
-        User user = createUserObject();
+        User user = createUser();
         user.setUserName("TestUserNameIsmaxLength=testetestestestest");
-        String validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
-        user = createUserObject();
+        user = createUser();
         user.setName("fdjkhgjkdhgkjdghkfdhl,fdmngfmgfjkgjkdfhfgjkfgdhgdfjdfg.dghlgkgkfldfghlgkfgfk");
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
-        user = createUserObject();
+        user = createUser();
         user.setPassword("fdjkhgjkdhgkjdghkfdhl,fdmngfmgfjkgjkdfhfgjkfgdhgdfjdfg.dghlgkgkfldfghlgkfgfk\"");
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
-        user = createUserObject();
+        user = createUser();
         user.setAddress("fdjkhgjkdhgkjdghkfdhl,fdmngfmgfjkgjkdfhfgjkfgdhgdfjdfg.dghlgkgkfldfghlgkfgfk\"jhdfgkljghgdfhfgdjkklfhmgkghdfggfdhkgfdkgfh");
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
@@ -118,24 +119,33 @@ public class BuyerRegistrationValidatorTest {
 
     @Test
     public void verifyIfValidationMessageIsNotEmptyWhenInvalidGenderIsProvided() {
-        User user = createUserObject();
+        User user = createUser();
         user.setGender("Mal");
-        String validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
         user.setGender("Fenbxv,mngfj");
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
     }
 
     @Test
+    public void verifyIfValidationMessageIsNotEmptyWhenUserTypeIsValid() {
+        User user = createUser();
+        user.setUserType("fff");
+        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        Assert.assertEquals("Invalid User Type" + System.lineSeparator(), validationMessage);
+
+    }
+
+
+    @Test
     public void verifyIfValidationMessageIsEmptyWhenValidPayloadIsProvided() {
-        User user = createUserObject();
-        String validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        User user = createUser();
+        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         System.out.println(validationMessage);
         Assert.assertTrue(validationMessage.isEmpty());
-
 
     }
 
@@ -144,14 +154,14 @@ public class BuyerRegistrationValidatorTest {
     public void verifyIfValidationMessageIsNotEmptyWhenDateIsInvalid() {
 
         Calendar calendar = Calendar.getInstance();
-        User user = createUserObject();
+        User user = createUser();
         user.setDate(null);
-        String validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Date futureDate = calendar.getTime();
         user.setDate(futureDate);
-        validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
+        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
     }
