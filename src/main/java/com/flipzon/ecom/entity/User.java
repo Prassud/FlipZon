@@ -32,6 +32,10 @@ public class User {
     private Date date;
     @Column(name = "user_type")
     private String userType;
+    @Column(name = "pan_num")
+    private String panNum;
+    @Column(name = "experience")
+    private int experience;
 
     public void setName(String name) {
         this.name = name;
@@ -103,6 +107,22 @@ public class User {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getPanNum() {
+        return panNum;
+    }
+
+    public void setPanCard(String panNum) {
+        this.panNum = panNum;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
     }
 
     @Override
