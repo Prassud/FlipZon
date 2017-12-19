@@ -132,7 +132,6 @@ public class BuyerRegistrationValidatorTest {
     @Test
     public void verifyIfValidationMessageIsEmptyWhenValidPayloadIsProvided() {
         User user = createUserObject();
-
         String validationMessage = BuyerRegistrationValidator.validateMandatoryFieldsInPayload(user);
         System.out.println(validationMessage);
         Assert.assertTrue(validationMessage.isEmpty());

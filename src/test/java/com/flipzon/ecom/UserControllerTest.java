@@ -3,8 +3,7 @@ package com.flipzon.ecom;
 
 import com.flipzon.ecom.controller.UserController;
 import com.flipzon.ecom.entity.User;
-import com.flipzon.ecom.repository.IUserService;
-import com.flipzon.ecom.validator.BuyerRegistrationValidator;
+import com.flipzon.ecom.repository.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,7 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserControllerTest {
@@ -24,7 +24,7 @@ public class UserControllerTest {
     UserController userController;
 
     @Mock
-    IUserService userService;
+    UserService userService;
 
     private User createUserObject() {
         User user = new User();

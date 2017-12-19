@@ -1,7 +1,7 @@
 package com.flipzon.ecom.controller;
 
 import com.flipzon.ecom.entity.User;
-import com.flipzon.ecom.repository.IUserService;
+import com.flipzon.ecom.repository.UserService;
 import com.flipzon.ecom.validator.BuyerRegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class UserController {
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST,value = "/users")
     public ResponseEntity<String> buyerRegistration(@RequestBody User user){
