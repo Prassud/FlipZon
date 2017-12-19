@@ -1,4 +1,4 @@
-package com.flipzon.flipzon;
+package com.flipzon.ecom;
 
 import com.flipzon.ecom.entity.User;
 import org.junit.Test;
