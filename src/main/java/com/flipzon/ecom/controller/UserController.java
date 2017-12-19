@@ -19,7 +19,11 @@ public class UserController {
 
         if (message.isEmpty()) {
             boolean flag = userService.addUser(user);
+            if (flag)
             return new ResponseEntity<String>(HttpStatus.CREATED);
+            else
+                return new ResponseEntity<String>("Something went wrong.", HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
         else
             return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);

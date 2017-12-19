@@ -16,8 +16,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean addUser(User user) {
         encryptPassword(user);
-            userDAO.addUser(user);
-        return true;
+        return  userDAO.addUser(user);
     }
 
     private void encryptPassword(User user) {

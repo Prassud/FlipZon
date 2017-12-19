@@ -15,8 +15,9 @@ public class UserDAOImpl implements UserDAO{
     private EntityManager entityManager;
 
     @Override
-    public void addUser(User user) {
+    public boolean addUser(User user) {
         entityManager.persist(user);
+        return entityManager.contains(user);
     }
 
 }
