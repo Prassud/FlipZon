@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,7 +21,10 @@ public class UserServiceImpl implements UserService {
         return userDAO.addUser(user);
     }
 
-
+    @Override
+    public List<User> getUser(String userName) {
+        return userDAO.getUser(userName);
+    }
     private void encryptPassword(User user) {
         user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes()));
     }

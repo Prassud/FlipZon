@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Repository
@@ -26,6 +27,14 @@ public class UserDAOImpl implements UserDAO {
         }
         entityManager.persist(user);
         return entityManager.contains(user);
+    }
+
+
+    @Override
+    public List<User> getUser(String userName) {
+        String hql = "FROM User as usr WHERE usr.userName = ?";
+        List<User> users = entityManager.createQuery(hql).setParameter(1, userName).getResultList();
+        return users;
     }
 
 
