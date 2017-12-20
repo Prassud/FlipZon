@@ -44,10 +44,10 @@ public class UserControllerTest {
     }
 
     @Test
-    public void shouldReturnStatusOkIfBuyerRegisteredSuccessfully() {
+    public void shouldReturnStatusOkIfUserRegisteredSuccessfully() {
         User user = createUser();
         when(userService.addUser(user)).thenReturn(true);
-        ResponseEntity<String> response = userController.buyerRegistration(user);
+        ResponseEntity<String> response = userController.userRegistration(user);
         Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
     }
@@ -56,17 +56,17 @@ public class UserControllerTest {
     public void shouldReturnInternalServerErrorIfServiceFails() {
         User user = createUser();
         when(userService.addUser(any())).thenReturn(false);
-        ResponseEntity<String> response = userController.buyerRegistration(user);
+        ResponseEntity<String> response = userController.userRegistration(user);
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
 
     }
 
 
     @Test
-    public void shouldReturnBadRequestIfBuyerValidationFails() {
+    public void shouldReturnBadRequestIfUserValidationFails() {
         User user = createUser();
         user.setName("");
-        ResponseEntity<String> response = userController.buyerRegistration(user);
+        ResponseEntity<String> response = userController.userRegistration(user);
         Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 

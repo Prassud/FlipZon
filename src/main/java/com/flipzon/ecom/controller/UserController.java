@@ -14,18 +14,15 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST,value = "/users")
-    public ResponseEntity<String> buyerRegistration(@RequestBody User user){
+    public ResponseEntity<String> userRegistration(@RequestBody User user){
         String message = UserRegistrationValidator.validateQuorumFields(user);
 
         if (message.isEmpty()) {
             boolean isSuccess = userService.addUser(user);
             if (isSuccess)
-            return new ResponseEntity<>(HttpStatus.CREATED);
-            else
-                return new ResponseEntity<>("Something went wrong.", HttpStatus.INTERNAL_SERVER_ERROR);
-
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>("Something went wrong.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        else
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 }

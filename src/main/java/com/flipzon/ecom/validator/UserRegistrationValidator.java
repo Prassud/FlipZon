@@ -114,14 +114,14 @@ public class UserRegistrationValidator {
     }
 
     private static String validatePanNumber(String panNumber){
-        if(panNumber.length() < 3 || panNumber.length() > 10)
-            return "Provided Pan number is invalid. Provide no between 3 to 10 length" + System.lineSeparator();
+        if(panNumber.length() < 1)
+            return "Provided Pan number is invalid" + System.lineSeparator();
 
         return "";
 
     }
     private static String validateExperience(int experience){
-        if(experience == 0)
+        if(experience <= 0)
             return "Please provide a valid experience number.";
         return "";
 
