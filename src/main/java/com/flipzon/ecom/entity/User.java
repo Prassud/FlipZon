@@ -1,6 +1,5 @@
 package com.flipzon.ecom.entity;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -30,8 +29,18 @@ public class User {
     private String gender;
     @Column(name = "date")
     private Date date;
-    @Column(name = "user_type")
-    private String userType;
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="user_type", nullable=false,insertable = false, updatable = false)
+    private UserType userType;
     @Column(name = "pan_num")
     private String panNum;
     @Column(name = "experience")
@@ -101,13 +110,6 @@ public class User {
         return date;
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
 
     public String getPanNum() {
         return panNum;

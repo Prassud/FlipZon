@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
@@ -34,17 +33,21 @@ public class UserServiceTest {
         user.setMobile("8095395188");
         user.setName("TestUser");
         user.setUserName("TestUserName");
-        user.setDate(new Date());
         user.setUserName("TestName");
         user.setPassword("**********");
-        user.setGender("male");
+        return user;
+    }
+    private User createBuyer() {
+        User user = createUser();
+        user.setDate(new Date());
         user.setUserType("BUYER");
+        user.setGender("male");
         return user;
     }
 
     @Test
-    public void verifyIfAddUserServiceIsSuccess(){
-        User user = createUser();
+    public void verifyIfBuyerIsAddedSuccessfully(){
+        User user = createBuyer();
         when(userDAO.addUser(user)).thenReturn(true);
         boolean flag = userService.addUser(user);
         Assert.assertEquals(true, flag);
@@ -54,11 +57,30 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldReturnFalseIfUserAddFails(){
-        User user = createUser();
+    public void shouldReturnFalseIfBuyerAddFails(){
+        User user = createBuyer();
         when(userDAO.addUser(user)).thenReturn(false);
         boolean flag = userService.addUser(user);
         Assert.assertEquals(false, flag);
+        verify(userDAO, times(1)).addUser(user);
+
+    }
+
+
+    private User createSeller() {
+        User user = createUser();
+        user.setExperience(10);
+        user.setPanCard("BNLPA7869A");
+        user.setUserType("SELLER");
+        return user;
+    }
+
+    @Test
+    public void verifyIfSellerIsAddedSuccessfully(){
+        User user = createSeller();
+        when(userDAO.addUser(user)).thenReturn(true);
+        boolean flag = userService.addSeller(user);
+        Assert.assertEquals(true, flag);
         verify(userDAO, times(1)).addUser(user);
 
     }
