@@ -1,27 +1,16 @@
 package com.flipzon.ecom;
 
 import com.flipzon.ecom.entity.User;
-import com.flipzon.ecom.validator.BuyerRegistrationValidator;
+import com.flipzon.ecom.validator.UserRegistrationValidator;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class BuyerRegistrationValidatorTest {
+public class UserRegistrationValidatorTest {
 
-    @Test
-    public void verifyEmailIdIsInvalid() {
 
-        User user = createUser();
-        user.setEmailId("jhvjfghgfk.com");
-        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
-        Assert.assertFalse(validationMessage.isEmpty());
-        user.setEmailId("jhvjfghgfk.com@");
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
-        Assert.assertFalse(validationMessage.isEmpty());
-
-    }
 
     private User createUser() {
         User user = new User();
@@ -33,9 +22,22 @@ public class BuyerRegistrationValidatorTest {
         user.setDate(new Date());
         user.setUserName("TestName");
         user.setPassword("sdfghyu");
-        user.setUserType("Buyer");
+        user.setUserType("BUYER");
         user.setGender("Male");
         return user;
+    }
+
+    @Test
+    public void verifyEmailIdIsInvalid() {
+
+        User user = createUser();
+        user.setEmailId("jhvjfghgfk.com");
+        String validationMessage = UserRegistrationValidator.validateQuorumFields(user);
+        Assert.assertFalse(validationMessage.isEmpty());
+        user.setEmailId("jhvjfghgfk.com@");
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
+        Assert.assertFalse(validationMessage.isEmpty());
+
     }
 
     @Test
@@ -43,13 +45,13 @@ public class BuyerRegistrationValidatorTest {
 
         User user = createUser();
         user.setMobile("jfdhg");
-        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        String validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
         user.setMobile("");
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
         user.setMobile("123456789012");
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
@@ -60,29 +62,29 @@ public class BuyerRegistrationValidatorTest {
 
         User user = createUser();
         user.setUserName("");
-        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        String validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
         user = createUser();
         user.setName("");
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
         user = createUser();
         user.setPassword("");
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
         user = createUser();
         user.setAddress("");
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
         user = createUser();
         user.setPassword("");
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
@@ -94,23 +96,23 @@ public class BuyerRegistrationValidatorTest {
 
         User user = createUser();
         user.setUserName("TestUserNameIsmaxLength=testetestestestest");
-        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        String validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
         user = createUser();
         user.setName("fdjkhgjkdhgkjdghkfdhl,fdmngfmgfjkgjkdfhfgjkfgdhgdfjdfg.dghlgkgkfldfghlgkfgfk");
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
         user = createUser();
         user.setPassword("fdjkhgjkdhgkjdghkfdhl,fdmngfmgfjkgjkdfhfgjkfgdhgdfjdfg.dghlgkgkfldfghlgkfgfk\"");
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
         user = createUser();
         user.setAddress("fdjkhgjkdhgkjdghkfdhl,fdmngfmgfjkgjkdfhfgjkfgdhgdfjdfg.dghlgkgkfldfghlgkfgfk\"jhdfgkljghgdfhfgdjkklfhmgkghdfggfdhkgfdkgfh");
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
@@ -121,10 +123,10 @@ public class BuyerRegistrationValidatorTest {
     public void verifyIfValidationMessageIsNotEmptyWhenInvalidGenderIsProvided() {
         User user = createUser();
         user.setGender("Mal");
-        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        String validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
         user.setGender("Fenbxv,mngfj");
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
 
 
@@ -134,7 +136,7 @@ public class BuyerRegistrationValidatorTest {
     public void verifyIfValidationMessageIsNotEmptyWhenUserTypeIsValid() {
         User user = createUser();
         user.setUserType("fff");
-        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        String validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertEquals("Invalid User Type" + System.lineSeparator(), validationMessage);
 
     }
@@ -143,7 +145,7 @@ public class BuyerRegistrationValidatorTest {
     @Test
     public void verifyIfValidationMessageIsEmptyWhenValidPayloadIsProvided() {
         User user = createUser();
-        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        String validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         System.out.println(validationMessage);
         Assert.assertTrue(validationMessage.isEmpty());
 
@@ -156,13 +158,32 @@ public class BuyerRegistrationValidatorTest {
         Calendar calendar = Calendar.getInstance();
         User user = createUser();
         user.setDate(null);
-        String validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        String validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Date futureDate = calendar.getTime();
         user.setDate(futureDate);
-        validationMessage = BuyerRegistrationValidator.validateBuyer(user);
+        validationMessage = UserRegistrationValidator.validateQuorumFields(user);
         Assert.assertFalse(validationMessage.isEmpty());
+
+    }
+    @Test
+    public void verifyIfValidationMessageIsNotEmptyWhenPanNumberIsNotValid() {
+        User user = createUser();
+        user.setUserType("SELLER");
+        user.setPanCard("1234567891");
+        String validationMessage = UserRegistrationValidator.validateQuorumFields(user);
+        Assert.assertFalse(validationMessage.isEmpty());
+
+    }
+    @Test
+    public void verifyIfValidationMessageIsEmptyWhenValidSellerPayloadIsProvided() {
+        User user = createUser();
+        user.setUserType("SELLER");
+        user.setPanCard("1234567891");
+        user.setExperience(5);
+        String validationMessage = UserRegistrationValidator.validateQuorumFields(user);
+        Assert.assertTrue(validationMessage.isEmpty());
 
     }
 

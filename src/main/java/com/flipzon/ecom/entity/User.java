@@ -30,17 +30,16 @@ public class User {
     @Column(name = "date")
     private Date date;
 
-    public UserType getUserType() {
+    public String getUserType() {
         return userType;
     }
 
-    public void setUserType(UserType userType) {
+    public void setUserType(String userType) {
         this.userType = userType;
     }
 
-    @ManyToOne
-    @JoinColumn(name="user_type", nullable=false,insertable = false, updatable = false)
-    private UserType userType;
+    @Column(name = "user_type")
+    private String userType;
     @Column(name = "pan_num")
     private String panNum;
     @Column(name = "experience")

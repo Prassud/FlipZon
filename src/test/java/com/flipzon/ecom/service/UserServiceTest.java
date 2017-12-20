@@ -79,10 +79,9 @@ public class UserServiceTest {
     public void verifyIfSellerIsAddedSuccessfully(){
         User user = createSeller();
         when(userDAO.addUser(user)).thenReturn(true);
-        boolean flag = userService.addSeller(user);
+        boolean flag = userService.addUser(user);
         Assert.assertEquals(true, flag);
         verify(userDAO, times(1)).addUser(user);
-
     }
 
 
