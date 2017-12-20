@@ -43,7 +43,7 @@ public class User {
     @Column(name = "pan_num")
     private String panNum;
     @Column(name = "experience")
-    private int experience;
+    private Integer experience;
 
     public void setName(String name) {
         this.name = name;
@@ -118,11 +118,11 @@ public class User {
         this.panNum = panNum;
     }
 
-    public int getExperience() {
+    public Integer getExperience() {
         return experience;
     }
 
-    public void setExperience(int experience) {
+    public void setExperience(Integer experience) {
         this.experience = experience;
     }
 

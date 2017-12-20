@@ -10,9 +10,4 @@ date Date,
 pan_num varchar(10),
 experience int,
 user_type varchar(20) not null,
-primary key (ID)
-)
-
-create table User_Type(ID int NOT NULL,
-user_type varchar(10) not null,
 primary key (ID))

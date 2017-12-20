@@ -17,14 +17,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(User user) {
+        updateUserBasendUserType(user);
         encryptPassword(user);
         return userDAO.addUser(user);
+    }
+
+    private void updateUserBasendUserType(User user) {
+        if (UserType.BUYER.toString().equals(user.getUserType())) {
+            user.setPanCard(null);
+            user.setExperience(null);
+        } else {
+            user.setGender(null);
+            user.setDate(null);
+        }
     }
 
     @Override
     public List<User> getUser(String userName) {
         return userDAO.getUser(userName);
     }
+
     private void encryptPassword(User user) {
         user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes()));
     }

@@ -18,13 +18,6 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean addUser(User user) {
-        if (UserType.BUYER.toString().equals(user.getUserType())) {
-            user.setPanCard(null);
-            user.setExperience(0);
-        } else {
-            user.setGender(null);
-            user.setDate(null);
-        }
         entityManager.persist(user);
         return entityManager.contains(user);
     }
