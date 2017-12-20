@@ -2,7 +2,7 @@ package com.flipzon.ecom.controller;
 
 import com.flipzon.ecom.entity.User;
 import com.flipzon.ecom.repository.UserService;
-import com.flipzon.ecom.validator.BuyerRegistrationValidator;
+import com.flipzon.ecom.validator.UserRegistrationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST,value = "/users")
     public ResponseEntity<String> buyerRegistration(@RequestBody User user){
-        String message = BuyerRegistrationValidator.validateBuyer(user);
+        String message = UserRegistrationValidator.validateQuorumFields(user);
 
         if (message.isEmpty()) {
             boolean flag = userService.addUser(user);

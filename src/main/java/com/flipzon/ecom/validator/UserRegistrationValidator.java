@@ -1,25 +1,47 @@
 package com.flipzon.ecom.validator;
 
+import com.flipzon.ecom.entity.GenderType;
 import com.flipzon.ecom.entity.User;
+import com.flipzon.ecom.entity.UserType;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Date;
 
 
-public class BuyerRegistrationValidator {
+public class UserRegistrationValidator {
 
-    public static String validateBuyer(User user) {
+    public static String validateQuorumFields(User user){
         StringBuffer message = new StringBuffer();
 
         message.append(validateIsEmptyAndMaxLength("name", user.getName(), 30));
         message.append(validateIsEmptyAndMaxLength("address", user.getAddress(), 60));
         message.append(validateSpaceAndIsEmptyAndMaxLength("password", user.getPassword(), 12));
         message.append(validateSpaceAndIsEmptyAndMaxLength("userName", user.getUserName(), 20));
-        message.append(validateGender(user.getGender()));
         message.append(validateMobileNumber(user.getMobile()));
         message.append(validateEmailId(user.getEmailId()));
+        if(user.getUserType().equals(UserType.BUYER.toString()))
+            validateBuyer(user,message);
+        else if(user.getUserType().equals(UserType.SELLER.toString()))
+            validateSeller(user,message);
+        else
+            message.append("Invalid User Type" + System.lineSeparator());
+
+        return message.toString();
+
+    }
+
+    public static String validateBuyer(User user, StringBuffer message) {
+
+        message.append(validateGender(user.getGender()));
         message.append(validateDate(user.getDate()));
-        message.append(!"Buyer".equals(user.getUserType()) ? "Invalid User Type" + System.lineSeparator() : "");
+
+        return message.toString();
+    }
+    public static String validateSeller(User user, StringBuffer message) {
+
+        message.append(validatePanNumber(user.getPanNum()));
+        message.append(validateExperience(user.getExperience()));
+
         return message.toString();
     }
 
@@ -84,10 +106,25 @@ public class BuyerRegistrationValidator {
     }
 
     private static String validateGender(String gender) {
-        if (!("Male".equals(gender) || "Female".equals(gender) || "Others".equals(gender))) {
+        if (!(GenderType.Male.toString().equals(gender) || GenderType.Female.toString().equals(gender)
+                || GenderType.Others.toString().equals(gender))) {
             return "Provided gender is invalid. Provide Male, Female or Others" + System.lineSeparator();
         }
         return "";
+    }
+
+    private static String validatePanNumber(String panNumber){
+        if(panNumber.length() < 3 || panNumber.length() > 10)
+            return "Provided Pan number is invalid. Provide no between 3 to 10 length" + System.lineSeparator();
+
+        return "";
+
+    }
+    private static String validateExperience(int experience){
+        if(experience == 0)
+            return "Please provide a valid experience number.";
+        return "";
+
     }
 
 
