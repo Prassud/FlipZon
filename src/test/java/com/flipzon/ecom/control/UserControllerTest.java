@@ -37,22 +37,23 @@ public class UserControllerTest {
         user.setUserName("TestUserName");
         user.setDate(new Date());
         user.setUserName("TestName");
-        user.setPassword("**********");
+        user.setPassword("TestPassword");
         user.setGender("Male");
         user.setUserType("BUYER");
         return user;
     }
 
     @Test
-    public void shouldReturnStatusOkIfBuyerRegistered(){
+    public void shouldReturnStatusOkIfBuyerRegisteredSuccessfully() {
         User user = createUser();
         when(userService.addUser(user)).thenReturn(true);
         ResponseEntity<String> response = userController.buyerRegistration(user);
         Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
 
     }
+
     @Test
-    public void shouldReturnInternalServerErrorIfServiceFails(){
+    public void shouldReturnInternalServerErrorIfServiceFails() {
         User user = createUser();
         when(userService.addUser(any())).thenReturn(false);
         ResponseEntity<String> response = userController.buyerRegistration(user);
@@ -62,10 +63,12 @@ public class UserControllerTest {
 
 
     @Test
-    public void shouldReturnBadRequestIfBuyerValidationFails(){
+    public void shouldReturnBadRequestIfBuyerValidationFails() {
         User user = createUser();
         user.setName("");
         ResponseEntity<String> response = userController.buyerRegistration(user);
-        Assert.assertEquals(HttpStatus.BAD_REQUEST response.getStatusCode());
+        Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
+
+
 }

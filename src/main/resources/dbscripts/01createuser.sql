@@ -9,10 +9,8 @@ gender varchar(6),
 date Date,
 pan_num varchar(10),
 experience int,
-user_type int not null,
-primary key (ID),
-FOREIGN KEY (user_type)
-      REFERENCES User_Type(ID)
+user_type varchar(20) not null,
+primary key (ID)
 )
 
 create table User_Type(ID int NOT NULL,

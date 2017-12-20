@@ -18,8 +18,8 @@ public class UserController {
         String message = UserRegistrationValidator.validateQuorumFields(user);
 
         if (message.isEmpty()) {
-            boolean flag = userService.addUser(user);
-            if (flag)
+            boolean isSuccess = userService.addUser(user);
+            if (isSuccess)
             return new ResponseEntity<>(HttpStatus.CREATED);
             else
                 return new ResponseEntity<>("Something went wrong.", HttpStatus.INTERNAL_SERVER_ERROR);

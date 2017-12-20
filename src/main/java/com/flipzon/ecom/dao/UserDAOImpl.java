@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 @Transactional
@@ -18,18 +17,16 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean addUser(User user) {
+        if (UserType.BUYER.toString().equals(user.getUserType())) {
+            user.setPanCard(null);
+            user.setExperience(0);
+        } else {
+            user.setGender(null);
+            user.setDate(null);
+        }
         entityManager.persist(user);
         return entityManager.contains(user);
     }
 
-    @Override
-    public UserType getUserType(String userType) {
-
-        Query query = entityManager.createQuery("FROM user_type Where user_type=:userType");
-        query.setParameter("userType", userType);
-        UserType userTypeResult = (UserType) query.getResultList().get(0);
-        return userTypeResult;
-
-    }
 
 }

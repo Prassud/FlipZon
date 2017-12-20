@@ -26,22 +26,13 @@ public class UserDaoTest {
 
 
     @Test
-    public void verifyIfCorrectUserTypeIdIsRecievedForBuyer(){
-        UserType userType  = mock(UserType.class);
-        when(;
-    }
-
-
-    @Test
     public void shouldReturnTrueIfAddUserIsSuccessful() {
         User user = new User();
         when(entityManager.contains(user)).thenReturn(true);
         boolean result = userDAO.addUser(user);
-        Assert.assertEquals(true,result);
+        Assert.assertEquals(true, result);
         verify(entityManager, times(1)).contains(user);
     }
-
-
 
 
 }
