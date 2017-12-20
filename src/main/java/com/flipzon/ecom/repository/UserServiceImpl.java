@@ -2,6 +2,7 @@ package com.flipzon.ecom.repository;
 
 import com.flipzon.ecom.dao.UserDAO;
 import com.flipzon.ecom.entity.User;
+import com.flipzon.ecom.entity.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(User user) {
+        updateUserPasswordAndType(user);
+        return userDAO.addUser(user);
+    }
+
+
+    private void updateUserPasswordAndType(User user) {
         encryptPassword(user);
-        return  userDAO.addUser(user);
+        UserType queriedUserType = userDAO.getUserType(user.getUserType().getUserTypeValue());
+        user.setUserType(queriedUserType);
     }
 
     private void encryptPassword(User user) {

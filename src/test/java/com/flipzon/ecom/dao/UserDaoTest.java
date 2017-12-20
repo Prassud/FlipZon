@@ -1,6 +1,7 @@
 package com.flipzon.ecom.dao;
 
 import com.flipzon.ecom.entity.User;
+import com.flipzon.ecom.entity.UserType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 
-
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserDaoTest {
@@ -25,6 +23,14 @@ public class UserDaoTest {
 
     @Mock
     private EntityManager entityManager;
+
+
+    @Test
+    public void verifyIfCorrectUserTypeIdIsRecievedForBuyer(){
+        UserType userType  = mock(UserType.class);
+        when(;
+    }
+
 
     @Test
     public void shouldReturnTrueIfAddUserIsSuccessful() {

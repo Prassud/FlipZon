@@ -59,11 +59,13 @@ public class UserControllerTest {
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
 
     }
+
+
     @Test
     public void shouldReturnBadRequestIfBuyerValidationFails(){
         User user = createUser();
         user.setName("");
         ResponseEntity<String> response = userController.buyerRegistration(user);
-        Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        Assert.assertEquals(HttpStatus.BAD_REQUEST response.getStatusCode());
     }
 }
