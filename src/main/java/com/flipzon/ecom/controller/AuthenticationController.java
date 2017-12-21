@@ -3,6 +3,7 @@ package com.flipzon.ecom.controller;
 import com.flipzon.ecom.entity.Credentials;
 import com.flipzon.ecom.entity.User;
 import com.flipzon.ecom.repository.UserService;
+import com.flipzon.ecom.validator.CredentialsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,17 @@ public class AuthenticationController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST,value = "/auth")
-    public ResponseEntity authenticate(@RequestBody  Credentials credentials) {
+    public ResponseEntity authenticate(@RequestBody  Credentials credentials){
+
+        String message = CredentialsValidator.validateUserCredentials(credentials);
+
+        if(!message.isEmpty()) {
+            return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
+        }
+
         List<User> users = userService.getUser(credentials.getUserName());
+
+
         if(users.size() > 0 && validatePassword(users.get(0), credentials))
             return new ResponseEntity(HttpStatus.ACCEPTED);
         else
